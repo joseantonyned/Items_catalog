@@ -2,7 +2,6 @@ from flask import (Flask, render_template, request, redirect, jsonify, url_for,
                    flash)
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import scoped_session
 from database_setup import Base, Restaurant, MenuItem, User
 from flask import session as login_session
 import random
@@ -23,7 +22,7 @@ APPLICATION_NAME = "Restaurant Menu Application"
 engine = create_engine('postgresql://catalog:catalog@localhost/catalog')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
-session = scoped_session(DBSession)
+session = DBSession()
 
 # Create anti-forgery state token
 
